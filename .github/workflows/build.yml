@@ -66,17 +66,18 @@ jobs:
       - name: Package
         shell: bash
         run: |
+          # only the game itself goes in the download: no README, LICENSE or AUTHORS
           name=twin-karumba-${{ matrix.name }}
-          mkdir -p dist/$name
-          cp README.md LICENSE AUTHORS dist/$name/
+          mkdir -p dist/pkg
           cd dist
           case "$RUNNER_OS" in
             Windows)
-              cp ../target/release/twin-karumba-rs.exe $name/twin-karumba.exe
-              7z a -bd $name.zip $name >/dev/null ;;
+              cp ../target/release/twin-karumba-rs.exe pkg/twin-karumba.exe
+              (cd pkg && 7z a -bd ../$name.zip twin-karumba.exe >/dev/null) ;;
             macOS)
-              # a minimal app bundle, so it opens with a double-click
-              app="$name/Twin Karumba.app"
+              # a minimal app bundle, so it opens with a double-click (the bundle is
+              # the executable plus the Info.plist macOS needs to launch it)
+              app="pkg/Twin Karumba.app"
               mkdir -p "$app/Contents/MacOS"
               cp ../target/release/twin-karumba-rs "$app/Contents/MacOS/twin-karumba"
               cat > "$app/Contents/Info.plist" <<'PLIST'
@@ -93,10 +94,10 @@ jobs:
             <key>NSHighResolutionCapable</key><true/>
           </dict></plist>
           PLIST
-              ditto -c -k --keepParent $name $name.zip ;;
+              ditto -c -k --keepParent "$app" $name.zip ;;
             Linux)
-              cp ../target/release/twin-karumba-rs $name/twin-karumba
-              tar czf $name.tar.gz $name ;;
+              cp ../target/release/twin-karumba-rs pkg/twin-karumba
+              tar czf $name.tar.gz -C pkg twin-karumba ;;
           esac
           ls -la
 

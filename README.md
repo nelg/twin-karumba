@@ -6,7 +6,7 @@ This is the first of the three bake-off prototypes (Rust + macroquad, then Go + 
 
 ## Run it
 
-Ready-made builds for Windows, macOS and Linux are on the [releases page](https://github.com/nelg/twin-karumba/releases) and the [website](https://nelg.github.io/twin-karumba/). Each is a single file with everything built in:
+Ready-made builds for Windows, macOS and Linux are on the [releases page](https://github.com/nelg/twin-karumba/releases) and the [website](https://nelg.github.io/twin-karumba/). Each download holds just the game, a single file with everything built in:
 
 - **Windows:** unzip `twin-karumba-windows-x86_64.zip` and run `twin-karumba.exe`. It isn't signed yet, so Windows may say "Windows protected your PC": choose *More info*, then *Run anyway*.
 - **macOS** (Apple Silicon and Intel): unzip `twin-karumba-macos-universal.zip` and open *Twin Karumba*. The first time, right-click it and choose *Open*, because it isn't signed yet.
