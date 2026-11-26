@@ -6,7 +6,7 @@ name: build
 #
 # Releases: push the commit to the `release` branch (git push origin main:release)
 # and the release v<version in Cargo.toml> is created with the three files
-# attached; pushing a v* tag does the same for that tag. The file names don't carry
+# attached (if that version is already released, it's replaced: same tag, new files); pushing a v* tag does the same for that tag. The file names don't carry
 # the version, so the website can link to releases/latest/download/<name>.
 
 on:
@@ -125,6 +125,13 @@ jobs:
           else tag="v$(sed -n 's/^version *= *"\(.*\)"/\1/p' Cargo.toml | head -1)"; fi
           echo "tag=$tag" >> "$GITHUB_OUTPUT"
           ls -la dist
+      # pushing the same version to the release branch again replaces that release:
+      # the tag moves to this commit and the files are overwritten
+      - name: Point the tag at this commit
+        if: github.ref == 'refs/heads/release'
+        run: |
+          git tag -f "${{ steps.tag.outputs.tag }}" "$GITHUB_SHA"
+          git push -f origin "refs/tags/${{ steps.tag.outputs.tag }}"
       - uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.tag.outputs.tag }}
