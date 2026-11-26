@@ -1,0 +1,194 @@
+{
+ "fuel-a": {
+  "frame_px": [
+   90,
+   64
+  ],
+  "frames": 1,
+  "sheet": "fuel-a-sheet.png"
+ },
+ "fuel-b": {
+  "frame_px": [
+   84,
+   70
+  ],
+  "frames": 1,
+  "sheet": "fuel-b-sheet.png"
+ },
+ "fuel-c": {
+  "frame_px": [
+   84,
+   64
+  ],
+  "frames": 1,
+  "sheet": "fuel-c-sheet.png"
+ },
+ "flak": {
+  "frame_px": [
+   74,
+   60
+  ],
+  "frames": 2,
+  "sheet": "flak-sheet.png"
+ },
+ "radar-a": {
+  "frame_px": [
+   70,
+   80
+  ],
+  "frames": 4,
+  "sheet": "radar-a-sheet.png"
+ },
+ "radar-b": {
+  "frame_px": [
+   74,
+   74
+  ],
+  "frames": 4,
+  "sheet": "radar-b-sheet.png"
+ },
+ "turret-a": {
+  "frame_px": [
+   64,
+   44
+  ],
+  "frames": 2,
+  "sheet": "turret-a-sheet.png",
+  "gun_mount_px": [
+   32.5,
+   26.25
+  ]
+ },
+ "turret-a-gun": {
+  "frame_px": [
+   40,
+   20
+  ],
+  "frames": 1,
+  "sheet": "turret-a-gun-sheet.png",
+  "pivot_px": [
+   0.0,
+   10.0
+  ]
+ },
+ "turret-b": {
+  "frame_px": [
+   64,
+   40
+  ],
+  "frames": 2,
+  "sheet": "turret-b-sheet.png",
+  "gun_mount_px": [
+   32.5,
+   23.75
+  ]
+ },
+ "turret-b-gun": {
+  "frame_px": [
+   50,
+   18
+  ],
+  "frames": 1,
+  "sheet": "turret-b-gun-sheet.png",
+  "pivot_px": [
+   0.0,
+   8.75
+  ]
+ },
+ "turret-c": {
+  "frame_px": [
+   70,
+   44
+  ],
+  "frames": 2,
+  "sheet": "turret-c-sheet.png",
+  "gun_mount_px": [
+   35.0,
+   25.0
+  ]
+ },
+ "turret-c-gun": {
+  "frame_px": [
+   44,
+   20
+  ],
+  "frames": 1,
+  "sheet": "turret-c-gun-sheet.png",
+  "pivot_px": [
+   0.0,
+   10.0
+  ]
+ },
+ "mine-a": {
+  "frame_px": [
+   44,
+   44
+  ],
+  "frames": 2,
+  "sheet": "mine-a-sheet.png"
+ },
+ "mine-c": {
+  "frame_px": [
+   44,
+   44
+  ],
+  "frames": 2,
+  "sheet": "mine-c-sheet.png"
+ },
+ "rock-a": {
+  "frame_px": [
+   44,
+   40
+  ],
+  "frames": 1,
+  "sheet": "rock-a-sheet.png"
+ },
+ "rock-b": {
+  "frame_px": [
+   34,
+   54
+  ],
+  "frames": 1,
+  "sheet": "rock-b-sheet.png"
+ },
+ "rock-c": {
+  "frame_px": [
+   44,
+   50
+  ],
+  "frames": 1,
+  "sheet": "rock-c-sheet.png"
+ },
+ "pilot-a": {
+  "frame_px": [
+   30,
+   42
+  ],
+  "frames": 2,
+  "sheet": "pilot-a-sheet.png"
+ },
+ "pilot-b": {
+  "frame_px": [
+   30,
+   42
+  ],
+  "frames": 2,
+  "sheet": "pilot-b-sheet.png"
+ },
+ "cache": {
+  "frame_px": [
+   44,
+   34
+  ],
+  "frames": 1,
+  "sheet": "cache-sheet.png"
+ },
+ "chopper": {
+  "frame_px": [
+   144,
+   60
+  ],
+  "frames": 4,
+  "sheet": "chopper-sheet.png"
+ }
+}

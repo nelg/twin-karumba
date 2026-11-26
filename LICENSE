@@ -1,0 +1,36 @@
+Twin Karumba Beta Licence
+=========================
+
+Copyright (c) 2026 Glen Ogilvie. All rights reserved.
+
+Twin Karumba is in beta. The source code, art, music, sound and level files in
+this repository ("the Software") are published so people can see the project,
+try the beta builds and follow its progress. They are NOT yet free software.
+
+You MAY:
+  - read and browse the Software on GitHub;
+  - download, build and run the Software for your own personal, non-commercial
+    use, to play and test the beta;
+  - report bugs and suggest changes through this repository's issues.
+
+You may NOT, without written permission from the copyright holder:
+  - copy, redistribute, publish, sublicense or sell the Software, in whole or
+    in part, in source or compiled form (other than a fork on GitHub made only
+    to send a pull request to this repository);
+  - modify the Software or make derivative works, except for your own private
+    testing;
+  - use any of the art, music, sound or level files in another project.
+
+Contributions: if you send a pull request or patch, you agree that it may be
+included in the Software and released under this licence and under any future
+licence the copyright holder chooses for the project.
+
+Future licence: the intention is to release Twin Karumba under an open-source
+licence (probably the GNU General Public License v3) once it is out of beta.
+Until then, this licence applies to every version in this repository.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHOR BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY ARISING FROM THE SOFTWARE OR
+ITS USE.

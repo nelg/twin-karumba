@@ -1,0 +1,14 @@
+Twin Karumba
+============
+
+Author and copyright holder:
+  Glen Ogilvie
+
+Third-party material:
+  - Title logo lettering is drawn from the fonts Russo One (Jovanny Lemonad) and
+    Racing Sans One (Impallari Type), both under the SIL Open Font License 1.1.
+    Only the rendered images are included, not the font files.
+  - Music arranged from public-domain compositions: Beethoven, Symphony No. 5
+    ("Fifth Rotor"). The other tunes were made for this game.
+  - Rust crates used are listed in Cargo.toml / Cargo.lock, each under its own
+    licence (MIT and/or Apache-2.0).

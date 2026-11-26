@@ -1,0 +1,302 @@
+{
+ "_units": "art pixels (screen = 960x540 art px, 1 art px = 2x2 screen px at 1080p), seconds, degrees. Enemies wake when within screen + 64 px.",
+ "player": {
+  "bullet_speed": 1600,
+  "fire_interval": 0.1,
+  "scale": 0.8,
+  "max_bullets_on_screen": 5,
+  "_bullets": "cannon fires while held; no new shot while 5 of this player's bullets are on screen",
+  "bomb": {
+   "_rule": "small torpedo on a ballistic ARC. At release: find the landing point where a line at theta from vertical (from the release point) meets the ground (allow for scroll during the fall); fall time T = sqrt(2H/g) for that drop height H; horizontal speed vx = dx/T, constant; vertical starts at 0 with gravity. 0.8 s from the top of the flight area to normal ground; nearer ground = shorter fall.",
+   "max_falling": 3,
+   "gravity": 1351.6,
+   "release_y_top": 40,
+   "normal_ground_y": 472.5,
+   "angle_stopped": 20,
+   "angle_forward": 40,
+   "angle_backward": -20,
+   "angle_blend": "theta = 20 + 20*max(0,v) - 40*max(0,-v), v = horizontal input -1..1",
+   "y_of_t": "y = y0 + 0.5*g*t^2 + 0.25*w",
+   "pitch_frames": "torpedo sheet, 0..120 deg in 10 deg steps. pitch = target*smoothstep(t/T) + wobble_pitch_deg*sin(...); target 60 (nose 60 deg down, forward) or 120 when the bomb moves backward",
+   "x_of_t": "x = x0 + vx*t + 0.6*w",
+   "jitter_angle": 4.0,
+   "jitter_gravity": 0.06,
+   "_jitter": "per bomb, pick theta +- jitter_angle and gravity * (1 +- jitter_gravity) at release, so arcs are never exact",
+   "wobble_px": 3.0,
+   "wobble_hz": 6.0,
+   "wobble_pitch_deg": 7.0,
+   "_wobble": "w = wobble_px*sin(2pi*wobble_hz*t + random phase), faded in over 0.15 s; x += 0.6w, y += 0.25w",
+   "impact_pitch": 60,
+   "mount_reload": {
+    "delay_s": 0.1,
+    "slide_art_px": 12.5,
+    "time_s": 0.3,
+    "ease": "out-cubic",
+    "bounce_art_px": 1,
+    "bounce_s": 0.12
+   }
+  },
+  "laser": {
+   "_rule": "pickup; replaces bullets; beam while fire held, instant hit on the first target or terrain straight ahead",
+   "dwell_to_kill": 0.1,
+   "instant_kill": [
+    "balloon"
+   ],
+   "range": "to the screen edge",
+   "lasts": "until the player loses a life"
+  },
+  "flight": {
+   "forward_limit_screen_frac": 0.75,
+   "back_limit": "left screen edge, never leaves the screen",
+   "scroll_slow_when_back": 0.6,
+   "scroll_recover_s": 0.3,
+   "tilt_deg": 7,
+   "speed_x": 260,
+   "speed_y": 240,
+   "_speed": "prototype guess (not in brief yet): full speed the moment a key is pressed",
+   "mouse_speed": 300,
+   "fuel_full_tank_s": 45,
+   "fuel_depot_refill": 0.25,
+   "fuel_can_refill": 0.25,
+   "fuel_low": 0.2,
+   "lives": 3,
+   "respawn_invulnerable_s": 2.0,
+   "hitbox_half": [
+    44,
+    13
+   ]
+  },
+  "cannon": {
+   "aim": "along ship tilt: -7 deg (down) moving forward, +7 deg (up) moving back, level hovering"
+  }
+ },
+ "enemy_shots": {
+  "_rule": "dodgeable but not slow: about 0.4 s from firing to leaving the screen; aimed at the player's CURRENT position (no lead), so moving dodges",
+  "bullet_speed": 1100,
+  "shell_speed": 900,
+  "rocket_speed_start": 450,
+  "rocket_accel": 900,
+  "laser_telegraph": 0.5,
+  "laser_on": 0.3
+ },
+ "whirler_swarm": {
+  "group": [
+   5,
+   8
+  ],
+  "enter_speed": 220,
+  "formation": "chevron",
+  "unfurl_when": "x < 0.65*screen or within 300 of a player",
+  "orbit_omega": 3.0,
+  "orbit_r0": 12,
+  "orbit_growth": 55,
+  "phase_step": 0.6,
+  "centre_drift_to_player_y": 40,
+  "shoots": false,
+  "segments": [
+   5,
+   8
+  ],
+  "hits": "each segment must be shot separately (1 hit per segment)"
+ },
+ "drone": {
+  "trigger_ahead": 500,
+  "climb_speed": 200,
+  "match_y_tolerance": 10,
+  "attack_speed": 320,
+  "steer_after_turn": false,
+  "launches_per_pad": 2
+ },
+ "fighter": {
+  "speed": 380,
+  "turn_rate": 70,
+  "burst": 3,
+  "burst_gap": 0.1,
+  "fire_range": [
+   350,
+   700
+  ],
+  "exit": "pull up or down past the player and leave left"
+ },
+ "scout_chopper": {
+  "hold_ahead": 450,
+  "bob": 20,
+  "y_follow": 60,
+  "fire_interval": 1.2,
+  "stay": 6.0
+ },
+ "balloon": {
+  "bob": 12,
+  "bob_period": 3.0,
+  "blast_radius": 60,
+  "blast_kills": "anything touching the explosion: enemies, balloons (chains), shots, players without shield"
+ },
+ "gun_tower": {
+  "turn_rate": 90,
+  "aim_frames": [
+   0,
+   30,
+   60,
+   90,
+   120,
+   150,
+   180
+  ],
+  "burst": 2,
+  "cooldown": 1.5,
+  "range": 600,
+  "needs_line_of_sight": true
+ },
+ "tank": {
+  "max_slope": 25,
+  "drive_speed": 40,
+  "barrel_elevations": [
+   15,
+   35,
+   55
+  ],
+  "aim_tolerance": 6,
+  "cooldown": 2.0,
+  "logic": "find the spot on its drivable stretch (ground <= 25 deg) where barrel elevation + ground angle points at the player; drive there; fire when within aim_tolerance"
+ },
+ "rocket_truck": {
+  "max_slope": 25,
+  "drive_speed": 50,
+  "launcher_elevation": 30,
+  "salvo": 3,
+  "salvo_gap": 0.15,
+  "cooldown": 4.0,
+  "logic": "same as tank, one launcher angle"
+ },
+ "ground_rocket": {
+  "trigger_ahead": 200,
+  "speed_start": 300,
+  "accel": 700
+ },
+ "flak_gun": {
+  "cooldown": 1.8,
+  "burst_at": "player's current height",
+  "burst_radius": 40,
+  "burst_time": 0.3
+ },
+ "ceiling_turret": {
+  "arc": [
+   200,
+   340
+  ],
+  "telegraph": 0.5,
+  "laser_on": 0.3,
+  "cooldown": 2.0
+ },
+ "mine": {
+  "drift_to_player": 30,
+  "shootable": true
+ },
+ "falling_rocks": {
+  "trigger_ahead": 40,
+  "gravity": 900
+ },
+ "radar": {
+  "disables_flak_within": 800,
+  "for_seconds": 10
+ },
+ "two_players": {
+  "friendly_fire": false,
+  "ship_collision": false,
+  "overlap_fade_threshold": 0.5,
+  "top_ship_alpha": 0.55,
+  "fade_time": 0.1,
+  "draw_order": "P2 above P1",
+  "enemy_target": "nearest player, re-chosen every 2 s"
+ },
+ "ground_vehicles": {
+  "tracked_max_slope_deg": 25,
+  "tracked_tilt_with_slope": true,
+  "wheeled": "flat or very smooth ground only (runways, roads, metal decks, '_' flats)"
+ },
+ "clouds": {
+  "enemies_hold_fire_on_hidden_player": true,
+  "contact_in_cloud_kills": true,
+  "blocks_shots": false,
+  "overcast_band_frac_of_open_height": 0.33,
+  "thunder": {
+   "updraft_px_s": 240,
+   "updraft_range_below_px": 180,
+   "player_vertical_speed_px_s": 120,
+   "inside_jolt_px": 8,
+   "lightning_chance_per_s": 2.0,
+   "lightning_cost": "a hit removes the laser and empties the shield; never costs a life",
+   "inside_jolt_tilt_deg": 6
+  },
+  "hide": "ships and enemies inside a cloud are drawn under it",
+  "self_visibility": "outline",
+  "self_visibility_options": {
+   "outline": "1 px outline in player colour at ~60% alpha",
+   "hidden": "own ship disappears completely"
+  },
+  "radar": {
+   "dot": "red 5x5 art px with ring, blinks 4 Hz",
+   "lasts": "until that player loses a life (proposed)",
+   "shared_screen": "dots show while either player has radar (proposed)"
+  }
+ },
+ "landing": {
+  "input": "at ground level over a runway, fly backward + hold down",
+  "gear_frames": 5,
+  "gear_frame_s": 0.08,
+  "roll_to": "helipad in the runway middle",
+  "refuel_to_full_s": 2.0,
+  "points": 500,
+  "takeoff": "straight up, 90 art px/s, gear retracts after 0.2 s",
+  "scroll_stops_while_landed": true,
+  "once_per_airport_visit": true
+ },
+ "enemy_airfield": {
+  "note": "hostile airport: red markings, no helipad, no radar box; can't land (Glen confirmed)",
+  "launches": 3,
+  "launch_gap_s": 1.7,
+  "taxi_accel_px_s2": 260,
+  "liftoff_speed_px_s": 230,
+  "climb_vy_px_s": -150,
+  "climb_to_y": 110,
+  "turn_s": 0.55,
+  "run_right_speed_px_s": 420,
+  "turn_back_at_screen_x": 860,
+  "attack_speed_px_s": 300,
+  "attack": "burst of 3 aimed bullets (0.1 s apart) at 300..640 px range, then pull up past the player and leave left",
+  "hangar_bombed": "stops further launches (Glen confirmed)"
+ },
+ "shield": {
+  "enemy_shot_cost": 0.3333,
+  "ram_cost": {
+   "balloon": 1.0,
+   "drone": 0.25,
+   "fighter": 0.5,
+   "_note": "enemy that hits the shield blows up; all values Glen confirmed; a ram is absorbed even if it empties the shield",
+   "whirler_segment": 0.15
+  },
+  "ram_absorbed_when_emptied": true
+ },
+ "level_flow": {
+  "_note": "prototype values",
+  "cave_scroll_factor": 0.7,
+  "pickup_drop_chance": 0.18,
+  "pickup_life_s": 8.0,
+  "extra_life_first": 10000,
+  "extra_life_every": 30000,
+  "hoist_time_s": 1.6,
+  "hoist_max_height": 152,
+  "armour_bullet_hits": 2,
+  "boss_core_hp": 30,
+  "boss_pod_hp": 6
+ },
+ "title": {
+  "_note": "logo: chrome (style A) or sunset (style C)",
+  "logo": "chrome"
+ },
+ "music": {
+  "_note": "p2_lead: flute or harp. level2_song: file name in assets/music (no .xm)",
+  "p2_lead": "flute",
+  "level2_song": "fifth-rotor"
+ }
+}

@@ -1,0 +1,111 @@
+name: build
+
+# Builds the single-file game (assets packed in with `--features embed`) for
+# Windows, macOS (one universal file for Apple Silicon and Intel) and Linux.
+# Every push and pull request keeps the builds as workflow artifacts; pushing a
+# v* tag also attaches them to a GitHub release (a "-beta" style tag makes it a
+# pre-release). The file names don't carry the version, so the website can link
+# to releases/latest/download/<name>.
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            name: windows-x86_64
+          - os: macos-latest
+            name: macos-universal
+          # Ubuntu 22.04 links against an older glibc, so the build runs on more distributions
+          - os: ubuntu-22.04
+            name: linux-x86_64
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        shell: bash
+        run: |
+          rustup toolchain install stable --profile minimal
+          rustup default stable
+          if [ "$RUNNER_OS" = "macOS" ]; then rustup target add aarch64-apple-darwin x86_64-apple-darwin; fi
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Linux libraries
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y libasound2-dev libx11-dev libxi-dev libgl1-mesa-dev
+
+      - name: Build (Windows, Linux)
+        if: runner.os != 'macOS'
+        run: cargo build --release --features embed
+
+      - name: Build (macOS universal)
+        if: runner.os == 'macOS'
+        run: |
+          cargo build --release --features embed --target aarch64-apple-darwin
+          cargo build --release --features embed --target x86_64-apple-darwin
+          mkdir -p target/release
+          lipo -create -output target/release/twin-karumba-rs \
+            target/aarch64-apple-darwin/release/twin-karumba-rs \
+            target/x86_64-apple-darwin/release/twin-karumba-rs
+
+      - name: Package
+        shell: bash
+        run: |
+          name=twin-karumba-${{ matrix.name }}
+          mkdir -p dist/$name
+          cp README.md LICENSE AUTHORS dist/$name/
+          cd dist
+          case "$RUNNER_OS" in
+            Windows)
+              cp ../target/release/twin-karumba-rs.exe $name/twin-karumba.exe
+              7z a -bd $name.zip $name >/dev/null ;;
+            macOS)
+              # a minimal app bundle, so it opens with a double-click
+              app="$name/Twin Karumba.app"
+              mkdir -p "$app/Contents/MacOS"
+              cp ../target/release/twin-karumba-rs "$app/Contents/MacOS/twin-karumba"
+              cat > "$app/Contents/Info.plist" <<'PLIST'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0"><dict>
+            <key>CFBundleName</key><string>Twin Karumba</string>
+            <key>CFBundleDisplayName</key><string>Twin Karumba</string>
+            <key>CFBundleIdentifier</key><string>nz.ogilvie.twinkarumba</string>
+            <key>CFBundleExecutable</key><string>twin-karumba</string>
+            <key>CFBundlePackageType</key><string>APPL</string>
+            <key>CFBundleShortVersionString</key><string>0.1</string>
+            <key>LSMinimumSystemVersion</key><string>11.0</string>
+            <key>NSHighResolutionCapable</key><true/>
+          </dict></plist>
+          PLIST
+              ditto -c -k --keepParent $name $name.zip ;;
+            Linux)
+              cp ../target/release/twin-karumba-rs $name/twin-karumba
+              tar czf $name.tar.gz $name ;;
+          esac
+          ls -la
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: twin-karumba-${{ matrix.name }}
+          path: dist/twin-karumba-${{ matrix.name }}.*
+
+      - name: Attach to release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/twin-karumba-${{ matrix.name }}.*
+          prerelease: ${{ contains(github.ref_name, '-') }}

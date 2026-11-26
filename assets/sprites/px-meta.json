@@ -1,0 +1,393 @@
+{
+ "pixel": {
+  "base_px_per_unit": 1.25,
+  "upscale": 2,
+  "note": "art pixels are 2x2 screen pixels at 1080p"
+ },
+ "kx2": {
+  "frame_px": [
+   400,
+   240
+  ],
+  "rows": [
+   "fly",
+   "rescue",
+   "swing",
+   "cargo"
+  ],
+  "frames": 8,
+  "lives_digit": {
+   "x": 262,
+   "y": 98,
+   "sheet": "hull-digits.png",
+   "digit_px": [
+    6,
+    10
+   ],
+   "note": "draw the lives digit here (frame pixels, before flight tilt); hull reads TWIN KARUMBA <lives>2"
+  },
+  "bomb_mount": {
+   "torpedo_topleft": [
+    144,
+    131
+   ],
+   "torpedo_centre": [
+    181,
+    168
+   ],
+   "sprite": "torpedo-p1/p2 frame 0 (pitch 0)",
+   "draw_order": "under the heli layer, so the wing hides the reload",
+   "reload_delay_s": 0.1,
+   "reload_slide_px": 25,
+   "reload_time_s": 0.3,
+   "reload_ease": "ease-out cubic, then one 2 px settle bounce over 0.12 s",
+   "reload_bounce_px": 2,
+   "note": "frame pixels before flight tilt; rotate with the ship. On fire the mounted torpedo becomes the falling bomb at torpedo_centre, pitch 0. The reload always runs; with 3 of the player's bombs falling, the next one waits on the clamps."
+  },
+  "gear": {
+   "sheet": "kx2-gear-sheet.png",
+   "frames": 5,
+   "frame_px": [
+    400,
+    240
+   ],
+   "note": "0 = up (empty) .. 4 = down; draw under the heli layer; wheels touch ground at frame y 196"
+  }
+ },
+ "enemies": {
+  "whirler": {
+   "w": 26,
+   "h": 26,
+   "rows": 2,
+   "frames": 6,
+   "frame_px": [
+    64,
+    64
+   ],
+   "sheet": "whirler-sheet.png"
+  },
+  "tank": {
+   "w": 46,
+   "h": 32,
+   "rows": 3,
+   "frames": 4,
+   "frame_px": [
+    114,
+    80
+   ],
+   "sheet": "tank-sheet.png"
+  },
+  "rocket-truck": {
+   "w": 50,
+   "h": 36,
+   "rows": 2,
+   "frames": 4,
+   "frame_px": [
+    124,
+    90
+   ],
+   "sheet": "rocket-truck-sheet.png"
+  },
+  "rocket": {
+   "w": 22,
+   "h": 6,
+   "rows": 1,
+   "frames": 4,
+   "frame_px": [
+    54,
+    14
+   ],
+   "sheet": "rocket-sheet.png"
+  },
+  "gun-tower": {
+   "w": 40,
+   "h": 54,
+   "rows": 2,
+   "frames": 7,
+   "frame_px": [
+    100,
+    134
+   ],
+   "sheet": "gun-tower-sheet.png"
+  },
+  "drone": {
+   "w": 30,
+   "h": 22,
+   "rows": 1,
+   "frames": 4,
+   "frame_px": [
+    74,
+    54
+   ],
+   "sheet": "drone-sheet.png"
+  },
+  "drone-pad": {
+   "w": 40,
+   "h": 12,
+   "rows": 1,
+   "frames": 1,
+   "frame_px": [
+    100,
+    30
+   ],
+   "sheet": "drone-pad-sheet.png"
+  },
+  "fighter": {
+   "w": 44,
+   "h": 26,
+   "rows": 2,
+   "frames": 4,
+   "frame_px": [
+    110,
+    64
+   ],
+   "sheet": "fighter-sheet.png"
+  },
+  "bullet": {
+   "w": 14,
+   "h": 8,
+   "rows": 1,
+   "frames": 2,
+   "frame_px": [
+    34,
+    20
+   ],
+   "sheet": "bullet-sheet.png"
+  },
+  "balloon": {
+   "w": 32,
+   "h": 46,
+   "rows": 1,
+   "frames": 4,
+   "frame_px": [
+    80,
+    114
+   ],
+   "sheet": "balloon-sheet.png"
+  },
+  "explosion": {
+   "w": 44,
+   "h": 44,
+   "rows": 1,
+   "frames": 8,
+   "frame_px": [
+    110,
+    110
+   ],
+   "sheet": "explosion-sheet.png"
+  }
+ },
+ "weapons": {
+  "bullet-p1": {
+   "w": 16,
+   "h": 6,
+   "rows": 1,
+   "frames": 2,
+   "frame_px": [
+    40,
+    14
+   ],
+   "sheet": "bullet-p1-sheet.png"
+  },
+  "bomb-p1": {
+   "w": 16,
+   "h": 9,
+   "rows": 1,
+   "frames": 1,
+   "frame_px": [
+    40,
+    22
+   ],
+   "sheet": "bomb-p1-sheet.png"
+  },
+  "laser-p1": {
+   "w": 32,
+   "h": 8,
+   "rows": 1,
+   "frames": 4,
+   "frame_px": [
+    80,
+    20
+   ],
+   "sheet": "laser-p1-sheet.png"
+  },
+  "laser-head-p1": {
+   "w": 12,
+   "h": 12,
+   "rows": 1,
+   "frames": 3,
+   "frame_px": [
+    30,
+    30
+   ],
+   "sheet": "laser-head-p1-sheet.png"
+  },
+  "bullet-p2": {
+   "w": 16,
+   "h": 6,
+   "rows": 1,
+   "frames": 2,
+   "frame_px": [
+    40,
+    14
+   ],
+   "sheet": "bullet-p2-sheet.png"
+  },
+  "bomb-p2": {
+   "w": 16,
+   "h": 9,
+   "rows": 1,
+   "frames": 1,
+   "frame_px": [
+    40,
+    22
+   ],
+   "sheet": "bomb-p2-sheet.png"
+  },
+  "laser-p2": {
+   "w": 32,
+   "h": 8,
+   "rows": 1,
+   "frames": 4,
+   "frame_px": [
+    80,
+    20
+   ],
+   "sheet": "laser-p2-sheet.png"
+  },
+  "laser-head-p2": {
+   "w": 12,
+   "h": 12,
+   "rows": 1,
+   "frames": 3,
+   "frame_px": [
+    30,
+    30
+   ],
+   "sheet": "laser-head-p2-sheet.png"
+  },
+  "muzzle": {
+   "w": 12,
+   "h": 12,
+   "rows": 2,
+   "frames": 3,
+   "frame_px": [
+    30,
+    30
+   ],
+   "sheet": "muzzle-sheet.png"
+  },
+  "shell": {
+   "w": 18,
+   "h": 8,
+   "rows": 1,
+   "frames": 2,
+   "frame_px": [
+    44,
+    20
+   ],
+   "sheet": "shell-sheet.png"
+  },
+  "enemy-laser": {
+   "w": 32,
+   "h": 8,
+   "rows": 1,
+   "frames": 4,
+   "frame_px": [
+    80,
+    20
+   ],
+   "sheet": "enemy-laser-sheet.png"
+  },
+  "flak-burst": {
+   "w": 28,
+   "h": 28,
+   "rows": 1,
+   "frames": 6,
+   "frame_px": [
+    70,
+    70
+   ],
+   "sheet": "flak-burst-sheet.png"
+  },
+  "ground-blast": {
+   "w": 44,
+   "h": 44,
+   "rows": 1,
+   "frames": 8,
+   "frame_px": [
+    110,
+    110
+   ],
+   "sheet": "ground-blast-sheet.png"
+  },
+  "spark": {
+   "w": 10,
+   "h": 10,
+   "rows": 1,
+   "frames": 3,
+   "frame_px": [
+    24,
+    24
+   ],
+   "sheet": "spark-sheet.png"
+  },
+  "torpedo-p1": {
+   "w": 30,
+   "h": 30,
+   "rows": 1,
+   "frames": 13,
+   "frame_px": [
+    74,
+    74
+   ],
+   "sheet": "torpedo-p1-sheet.png"
+  },
+  "torpedo-p2": {
+   "w": 30,
+   "h": 30,
+   "rows": 1,
+   "frames": 13,
+   "frame_px": [
+    74,
+    74
+   ],
+   "sheet": "torpedo-p2-sheet.png"
+  }
+ },
+ "pickups": {
+  "sheets": {
+   "p1": "pickups-p1-sheet.png",
+   "p2": "pickups-p2-sheet.png"
+  },
+  "frame_px": [
+   40,
+   40
+  ],
+  "rows": [
+   "shield",
+   "fuel",
+   "life",
+   "laser",
+   "radar"
+  ],
+  "frames": 4,
+  "note": "one row per kind, 4 glow-pulse frames; only the matching player can collect"
+ },
+ "shield": {
+  "sheets": {
+   "p1": "shield-p1-sheet.png",
+   "p2": "shield-p2-sheet.png"
+  },
+  "frame_px": [
+   400,
+   240
+  ],
+  "frames": 10,
+  "note": "frames 0-7 shimmer loop, 8 = hit flash (full white), 9 = hit fade; same box and origin as the kx2 frame, drawn over the ship"
+ },
+ "hud": {
+  "bar_height_art_px": 23,
+  "font": "hud/src/hudfont.py (5x5 caps, drawn at 1x labels, 2x score)"
+ }
+}
