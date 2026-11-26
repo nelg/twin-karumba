@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Download Twin Karumba</title>
+<meta name="description" content="Download the Twin Karumba beta for Windows, macOS or Linux: one file, nothing else to install.">
+<link rel="icon" type="image/png" href="images/icon.png">
+<link rel="stylesheet" href="css/site.css?v=1">
+<script src="js/download.js?v=1" defer></script>
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="images/icon.png" alt="">Twin Karumba</a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="index.html#features">Features</a>
+      <a href="index.html#screenshots">Screenshots</a>
+      <a href="download.html" aria-current="page">Download</a>
+      <a href="https://github.com/nelg/twin-karumba">Source code</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section>
+    <h2>Download the beta <small>one file, nothing else to install</small></h2>
+    <p>Each download is the whole game in a single program: graphics, sound,
+    music and levels are built in. These links always fetch the latest release.</p>
+    <p class="detected" id="detected" hidden></p>
+    <div class="platforms">
+      <div class="platform" data-os="windows">
+        <h3>Windows</h3>
+        <p>Windows 10 and 11, 64-bit. <span class="yours" hidden>Your system</span></p>
+        <div class="buttons"><a class="btn" href="https://github.com/nelg/twin-karumba/releases/latest/download/twin-karumba-windows-x86_64.zip">Download for Windows</a></div>
+        <ol>
+          <li>Unzip the file.</li>
+          <li>Run <code>twin-karumba.exe</code>.</li>
+          <li>If Windows says "Windows protected your PC", choose <em>More info</em>, then <em>Run anyway</em>.</li>
+        </ol>
+      </div>
+      <div class="platform" data-os="macos">
+        <h3>macOS</h3>
+        <p>macOS 11 and newer, Apple Silicon and Intel. <span class="yours" hidden>Your system</span></p>
+        <div class="buttons"><a class="btn" href="https://github.com/nelg/twin-karumba/releases/latest/download/twin-karumba-macos-universal.zip">Download for macOS</a></div>
+        <ol>
+          <li>Unzip the file and move <em>Twin Karumba</em> to Applications if you like.</li>
+          <li>The first time, right-click it and choose <em>Open</em>, then <em>Open</em> again.</li>
+        </ol>
+      </div>
+      <div class="platform" data-os="linux">
+        <h3>Linux</h3>
+        <p>Any distribution, x86-64. <span class="yours" hidden>Your system</span></p>
+        <div class="buttons"><a class="btn" href="https://github.com/nelg/twin-karumba/releases/latest/download/twin-karumba-linux-x86_64.tar.gz">Download for Linux</a></div>
+        <ol>
+          <li>Unpack it: <code>tar xzf twin-karumba-linux-x86_64.tar.gz</code></li>
+          <li>Run <code>./twin-karumba</code> from the new folder.</li>
+          <li>Sound plays through PulseAudio or PipeWire, or ALSA.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Other versions</h2>
+    <ul>
+      <li>Every release and its notes are on the
+      <a href="https://github.com/nelg/twin-karumba/releases">releases page</a>.</li>
+      <li>Builds of the very latest code are on the
+      <a href="https://github.com/nelg/twin-karumba/actions/workflows/build.yml">build page</a>
+      (open a run, then <em>Artifacts</em>; needs a GitHub login).</li>
+      <li>To build it yourself, see the
+      <a href="https://github.com/nelg/twin-karumba#run-it">README</a>:
+      install Rust, then <code>cargo run --release</code>.</li>
+    </ul>
+    <div class="note">Twin Karumba is beta software by Glen Ogilvie. You're welcome
+    to play it and report bugs, but it isn't yet free to copy or change: see the
+    <a href="https://github.com/nelg/twin-karumba/blob/main/LICENSE">licence</a>.</div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    Twin Karumba by Glen Ogilvie. Source code on <a href="https://github.com/nelg/twin-karumba">GitHub</a>.
+  </div>
+</footer>
+</body>
+</html>
