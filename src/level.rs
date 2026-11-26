@@ -62,6 +62,9 @@ pub struct Level {
 
 impl Level {
     pub fn parse(text: &str) -> Level {
+        // Windows line endings (CRLF, e.g. from a git checkout on Windows) become plain \n,
+        // or the header and the rows would be misread.
+        let text = &text.replace("\r\n", "\n");
         // Split header and grid. `split_once` returns Option<(&str, &str)>.
         let (head, grid) = text.split_once("---\n").unwrap_or(("", text));
         let mut name = String::from("Level");

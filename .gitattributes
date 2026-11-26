@@ -1,0 +1,8 @@
+# Keep text files with LF line endings on every system (the level and tuning
+# files are read by the game, and Windows checkouts would otherwise get CRLF).
+* text=auto eol=lf
+*.png binary
+*.wav binary
+*.xm binary
+*.ogg binary
+*.mp3 binary
