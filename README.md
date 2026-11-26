@@ -12,7 +12,7 @@ Ready-made builds for Windows, macOS and Linux are on the [releases page](https:
 - **macOS** (Apple Silicon and Intel): unzip `twin-karumba-macos-universal.zip` and open *Twin Karumba*. The first time, right-click it and choose *Open*, because it isn't signed yet.
 - **Linux** (x86-64): unpack `twin-karumba-linux-x86_64.tar.gz` and run `./twin-karumba`.
 
-The builds come from `.github/workflows/build.yml` on every push. Pushing a `v*` tag also attaches them to a GitHub release.
+The builds come from `.github/workflows/build.yml` on every push. To publish a release, set `version` in Cargo.toml and run `git push origin main:release`: the pipeline creates release `v<version>` with the three files.
 
 Build it yourself (any OS):
 

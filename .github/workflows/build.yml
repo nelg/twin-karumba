@@ -2,14 +2,16 @@ name: build
 
 # Builds the single-file game (assets packed in with `--features embed`) for
 # Windows, macOS (one universal file for Apple Silicon and Intel) and Linux.
-# Every push and pull request keeps the builds as workflow artifacts; pushing a
-# v* tag also attaches them to a GitHub release (a "-beta" style tag makes it a
-# pre-release). The file names don't carry the version, so the website can link
-# to releases/latest/download/<name>.
+# Every push and pull request keeps the builds as workflow artifacts.
+#
+# Releases: push the commit to the `release` branch (git push origin main:release)
+# and the release v<version in Cargo.toml> is created with the three files
+# attached; pushing a v* tag does the same for that tag. The file names don't carry
+# the version, so the website can link to releases/latest/download/<name>.
 
 on:
   push:
-    branches: [main]
+    branches: [main, release]
     tags: ['v*']
   pull_request:
   workflow_dispatch:
@@ -103,9 +105,35 @@ jobs:
           name: twin-karumba-${{ matrix.name }}
           path: dist/twin-karumba-${{ matrix.name }}.*
 
-      - name: Attach to release
-        if: startsWith(github.ref, 'refs/tags/v')
-        uses: softprops/action-gh-release@v2
+  # one release, made after all three builds, so the jobs don't race to create it
+  release:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/release'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
         with:
-          files: dist/twin-karumba-${{ matrix.name }}.*
-          prerelease: ${{ contains(github.ref_name, '-') }}
+          path: dist
+          merge-multiple: true
+      - name: Release tag
+        id: tag
+        shell: bash
+        run: |
+          if [ "$GITHUB_REF_TYPE" = "tag" ]; then tag="$GITHUB_REF_NAME"
+          else tag="v$(sed -n 's/^version *= *"\(.*\)"/\1/p' Cargo.toml | head -1)"; fi
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          ls -la dist
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag.outputs.tag }}
+          target_commitish: ${{ github.sha }}
+          name: Twin Karumba ${{ steps.tag.outputs.tag }} (beta)
+          body: |
+            Beta build of Twin Karumba: level 1, for 1 or 2 players.
+            Each download is a single program with everything built in.
+            - Windows: unzip and run twin-karumba.exe (not signed yet: More info, Run anyway).
+            - macOS (Apple Silicon and Intel): unzip and open Twin Karumba (first time: right-click, Open).
+            - Linux (x86-64): unpack and run ./twin-karumba.
+            See https://nelg.github.io/twin-karumba/ and the LICENSE (beta: not yet free to copy or change).
+          files: dist/twin-karumba-*.*
